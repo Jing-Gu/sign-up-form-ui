@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form</title>
+    <script
+      src="https://kit.fontawesome.com/0724cd730f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-database.js"></script>
+    <!-- Animate css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
+    <!-- customized css -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container animated bounceInDown" id="container">
+      <!-- SIGN-UP FORM -->
+      <div class="form-container sign-up-container">
+        <form class="form" id="form-sign-up" action="#" method="GET">
+          <h1>Create Account</h1>
+
+          <div class="fields">
+            <div class="field-name">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+
+            <div class="field-name">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="email-sign-up"
+                placeholder="Email"
+                pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$"
+                required
+              />
+            </div>
+
+            <div class="field-name">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                class="password"
+                id="password-sign-up"
+                name="password"
+                placeholder="Password"
+                minlength="8"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number."
+                required
+              />
+            </div>
+          </div>
+          <button type="submit">Sign Up</button>
+          <span class="sign-choice">Or sign up with</span>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          </div>
+        </form>
+      </div>
+      <!-- SIGN-IN FORM -->
+      <div class="form-container sign-in-container">
+        <form class="form" action="#" method="GET">
+          <h1>Sign in</h1>
+
+          <div class="fields">
+            <div class="field-name">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" required />
+            </div>
+
+            <div class="field-name">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                class="password"
+                id="password-sign-in"
+                name="password"
+                placeholder="Password"
+                minlength="8"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number."
+                required
+              />
+            </div>
+          </div>
+          <a href="#" class="forget-link">Forgot your password?</a>
+          <button type="submit">Sign In</button>
+
+          <span class="sign-choice">Or sign in with</span>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          </div>
+        </form>
+      </div>
+      <!-- OVERLAY -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+
+          <div class="overlay-panel overlay-right">
+            <h1>Hello friend!</h1>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="alert">
+        <div class="alert-text">
+          <h1>Thank you</h1>
+          <p class="lead">
+            Your form has been successfully sent. <br />Check your email for
+            more information.
+          </p>
+          <p>* This is just for test purpose, nothing will be recorded.</p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyA7y_x1pq0OlyDIiTyl6GmemybpLVFwd1Q",
+        authDomain: "sign-up-form-9d769.firebaseapp.com",
+        databaseURL: "https://sign-up-form-9d769.firebaseio.com",
+        projectId: "sign-up-form-9d769",
+        storageBucket: "sign-up-form-9d769.appspot.com",
+        messagingSenderId: "173347142343",
+        appId: "1:173347142343:web:d67b0d817df03d2d351ce2",
+        measurementId: "G-Z8X5V55H77"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const messageRef = firebase.database().ref("sign-up");
+    </script>
+
+    <script src="main.js"></script>
+  </body>
+</html>
